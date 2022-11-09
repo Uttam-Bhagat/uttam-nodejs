@@ -1,0 +1,36 @@
+accelerator:
+  displayName: Express Postgres TypeScript Application
+  discription: Express is a minimal and flexbible Node web application framework that provides a robust set of a feature for
+  icon: https://velog.velcdn.com/images/jiheon/post/d658f4b8-68ba-45ed-8ba7-df9c5e683dd5/3.png
+  tags:
+  -center-of-excellence
+  -typescript
+  -node
+  -express
+  imports:
+    - name: 401-documentation-mardown-fragment
+    - name: docker-postgres-fragment
+    - name: 001-java-git-ignore
+engine:
+  merge:
+    - include: [ "**"]
+      exclude: [ "package.json"
+       , "config/**"
+       , "catalog/**"
+       , " README.md"
+       , "CONTRIBUTING.md"
+       , "CHANGELOG.md"
+       , "DEPLOYMENT.md" ]
+    - include: [ "package.json" ]
+      chain:
+      - type: ReplaceText
+        substitution:
+        - text: node-express
+          with: "#artifactId"
+    - include: [ "config/workload.yaml"]
+      condition: "#includeTap"
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: node-express
+          with: "#artifactId"
